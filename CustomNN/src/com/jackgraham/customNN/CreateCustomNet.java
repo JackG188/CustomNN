@@ -11,6 +11,9 @@ public class CreateCustomNet {
 	String expectedInput = "";
 	String expectedOutput = "";
 	boolean connecting = true;
+	ArrayList<int[]> connections = new ArrayList<int[]>();
+	ArrayList<Integer> weights = new ArrayList<Integer>();
+
 
 	public CreateCustomNet() {
 
@@ -75,7 +78,7 @@ public class CreateCustomNet {
 		// Connect layers
 		System.out.println("Setting Connections...");
 
-		ArrayList<int[]> connections = new ArrayList<int[]>();
+		
 
 		for (int x = 1; x < net.getLayerAmount() + 1; x++) {
 			int input = 0;
@@ -104,11 +107,21 @@ public class CreateCustomNet {
 
 		net.setConnections(connections);
 		
+		System.out.println("Please configure your weights for each input connection");
+		
+		for(int x=0;x<connections.size();x++)
+		{
+			System.out.println("Setting weight for layer " + (x+1));
+			weights.add(Integer.parseInt(scanIn.nextLine()));
+		}
+		
+		net.setWeights(weights);
 		
 		// Set output links
 		System.out.println("Setting output connections...");
 		
 		net.setOutputSize(net.getLayerAmount());
+		System.out.println("Output connections set!");
 		return net;
 		
 	}
