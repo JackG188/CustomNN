@@ -18,7 +18,7 @@ public class Network {
 	static int inputSize = 1;
 
 	ArrayList<int[]> connections = new ArrayList<int[]>();
-	ArrayList<Integer> weights = new ArrayList<Integer>();
+	ArrayList<String> weights = new ArrayList<String>();
 
 	public Network() {
 
@@ -97,11 +97,11 @@ public class Network {
 		this.netName = netName;
 	}
 
-	public ArrayList<Integer> getWeights() {
+	public ArrayList<String> getWeights() {
 		return weights;
 	}
 
-	public void setWeights(ArrayList<Integer> weights) {
+	public void setWeights(ArrayList<String> weights) {
 		this.weights = weights;
 	}
 

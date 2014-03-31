@@ -12,7 +12,7 @@ public class CreateCustomNet {
 	String expectedOutput = "";
 	boolean connecting = true;
 	ArrayList<int[]> connections = new ArrayList<int[]>();
-	ArrayList<Integer> weights = new ArrayList<Integer>();
+	ArrayList<String> weights = new ArrayList<String>();
 
 
 	public CreateCustomNet() {
@@ -112,7 +112,7 @@ public class CreateCustomNet {
 		for(int x=0;x<connections.size();x++)
 		{
 			System.out.println("Setting weight for layer " + (x+1));
-			weights.add(Integer.parseInt(scanIn.nextLine()));
+			weights.add(scanIn.nextLine());
 		}
 		
 		net.setWeights(weights);

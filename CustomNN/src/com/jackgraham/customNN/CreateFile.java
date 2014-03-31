@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class CreateFile {
 
 	ArrayList<int[]> connections = new ArrayList<int[]>();
+	ArrayList<String> weights = new ArrayList<String>();
+	String weightArray = "";
 	
 	public CreateFile() {
 
@@ -15,7 +17,7 @@ public class CreateFile {
 
 	public void writeTofile(Network net) {
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter("/Users/jackgraham/Documents/MatLab/test.m"));
+			BufferedWriter out = new BufferedWriter(new FileWriter("/Users/jackgraham/Documents/MatLab/test2.m"));
 			out.write("net = network;");
 			out.newLine();
 			out.write("net.numInputs=(" + net.getInputAmount() +");");
@@ -47,7 +49,22 @@ public class CreateFile {
 				out.newLine();
 			}
 			
+			weights = net.getWeights();
 			
+			for (int x =0;x<weights.size();x++)
+			{
+				String temp = weights.get(x);
+			//[0.5,0.5,0.5,0.5,0.5,0.5]
+				
+				weightArray += (""+temp);
+				if (x!=weights.size())
+				{
+					weightArray+=",";
+				}
+			}
+			
+			out.write("net = setwb(net,["+weightArray+"]);");
+			out.newLine();
 			out.write("view(net)");
 			out.newLine();
 			
