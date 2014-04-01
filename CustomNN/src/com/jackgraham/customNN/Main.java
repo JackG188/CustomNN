@@ -9,8 +9,9 @@ public class Main {
 		Network net = new Network();
 		CreateCustomNet customNet = new CreateCustomNet();
 		ReadLogicFile fileReader = new ReadLogicFile();
+		ParseLogicFile fileParser = new ParseLogicFile();
 		
-		fileReader.readFileIn();
+		fileParser.parseFile(fileReader.readFileIn());
 		net = customNet.getUserInput();
 		CreateFile create = new CreateFile();
 		create.writeTofile(net);

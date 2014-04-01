@@ -17,7 +17,7 @@ public class ReadLogicFile {
 		
 	}
 	
-	public void readFileIn()
+	public ArrayList<String> readFileIn()
 	{
 		FileInputStream fis = null;
         BufferedReader reader = null;
@@ -45,6 +45,6 @@ public class ReadLogicFile {
         } catch (IOException ex) {
           
         }
-	
+	return newFile;
 }
 }
