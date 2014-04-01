@@ -54,13 +54,13 @@ public class CreateFile {
 			for (int x =0;x<weights.size();x++)
 			{
 				String temp = weights.get(x);
-			//[0.5,0.5,0.5,0.5,0.5,0.5]
 				
 				weightArray += (""+temp);
 				if (x!=weights.size())
 				{
 					weightArray+=",";
 				}
+				temp ="";
 			}
 			
 			out.write("net = setwb(net,["+weightArray+"]);");
