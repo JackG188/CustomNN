@@ -8,7 +8,10 @@ public class ParseLogicFile {
 
 	int count;
 	int procedureLine;
+	int endOfNeuronInput;
 	String currentLine;
+	ArrayList<Integer> neuronLocation = new ArrayList<Integer>();
+	ArrayList<String> inputList = new ArrayList<String>();
 
 	public ParseLogicFile() {
 
@@ -50,33 +53,42 @@ public class ParseLogicFile {
 				 while (matcher.find())
 				 {
 					 count++;
+					 neuronLocation.add(x);
 				 }
 		 }
 		 System.out.println("Found " +count+" neuron(s)");
-		 findInput(file);
+		 
+		 for (int x=0;x<neuronLocation.size();x++)
+		 {
+			 findInput(neuronLocation.get(x),file);
+		 }
+		 
 	}
 	
-	public void findInput(ArrayList<String> file)
+	public void findInput(int neuronLine,ArrayList<String> file)
 	{
-		count = 0;
-		 for(int x=procedureLine;x<file.size();x++)
+		
+		 for(int x=neuronLine+1;x<file.size();x++)
 		 {
 			 	currentLine = file.get(x);
-				Pattern pattern = Pattern.compile("),");
-				Pattern pattern2 = Pattern.compile(").");
+				Pattern pattern = Pattern.compile(".");
 				Matcher matcher = pattern.matcher(currentLine);
-				Matcher matcher2 = pattern2.matcher(currentLine);
-				
-				 while (matcher.find() && matcher2.find()!=true)
+
+				 while (matcher.find())
 				 {
-					 count++;
-				 }
-				 if (matcher2.find()==true)
-				 {
-					 count++;
+					 endOfNeuronInput=x;
 				 }
 		 }
-		 System.out.println("Found " +count+" input(s)");
+		 System.out.println("Found fullstop at " +endOfNeuronInput);
+		 
+		 for(int x=neuronLine+1;x<endOfNeuronInput+1;x++)
+		 {
+			 currentLine = file.get(x);
+			 String [] inputSplit = currentLine.split("\\(");
+			 System.out.println(inputSplit[0]);
+			 inputList.add(inputSplit[0]);
+		 }
+		 
 	}
 
 }
