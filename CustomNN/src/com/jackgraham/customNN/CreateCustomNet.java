@@ -6,10 +6,12 @@ import java.util.Scanner;
 
 public class CreateCustomNet {
 
-	Network net = new Network();
-
+	int inputAmount = 0;
+	int outputAmount = 0;
+	int layerAmount = 0;
 	String expectedInput = "";
 	String expectedOutput = "";
+	String netName = "";
 	boolean connecting = true;
 	ArrayList<int[]> connections = new ArrayList<int[]>();
 	ArrayList<String> weights = new ArrayList<String>();
@@ -23,48 +25,55 @@ public class CreateCustomNet {
 	public Network getUserInput() throws IOException {
 
 		System.out.println("Welcome to Jack's Custom Net Builder");
-		setName();
-		setInputSize();
-		setOutputSize();
-		setLayerAmount();
-		setExpectedInputandOutput();
-		setConnections();
-		setWeights();
-		connectOutputs();
+		Network net = new Network();
+		setName(net);
+		setInputSize(net);
+		setOutputSize(net);
+		setLayerAmount(net);
+		setExpectedInput(net);
+		setExpectedOutput(net);
+		setConnections(net);
+		setWeights(net);
+		connectOutputs(net);
 
 		return net;
 	}
 
-	public void setName() {
+	public String setName(Network net) {
 		System.out.println("What would you like to call your net?: ");
 
 		Scanner scanIn = new Scanner(System.in);
-		net.setNetName(scanIn.nextLine());
+		netName = scanIn.nextLine();
+		net.setNetName(netName);
+		return netName;
 	}
 
-	public void setInputSize() {
+	public int setInputSize(Network net) {
 		// Get inputs
 		System.out.println("How many input elements do you want to use?: ");
-
-		net.setInputAmount(Integer.parseInt(scanIn.nextLine()));
+		inputAmount = Integer.parseInt(scanIn.nextLine());
+		net.setInputAmount(inputAmount);
+		return inputAmount;
 	}
 
-	public void setOutputSize() {
+	public int setOutputSize(Network net) {
 		// Get outputs
 		System.out.println("How many output elements do you want to use?: ");
-
-		net.setOutputSize(Integer.parseInt(scanIn.nextLine()));
+		outputAmount = Integer.parseInt(scanIn.nextLine());
+		net.setOutputSize(outputAmount);
+		return outputAmount;
 	}
 
-	public void setLayerAmount() {
+	public int setLayerAmount(Network net) {
 		// Get layers
 
 		System.out.println("How many neurons do you want to use?: ");
-
-		net.setLayerAmount(Integer.parseInt(scanIn.nextLine()));
+		layerAmount = Integer.parseInt(scanIn.nextLine());
+		net.setLayerAmount(layerAmount);
+		return layerAmount;
 	}
 
-	public void setExpectedInputandOutput() {
+	public String setExpectedInput(Network net) {
 		// Get expected input and output
 		for (int x = 1; x < net.getInputAmount() + 1; x++) {
 			System.out.println("Please enter the lower range of input " + x);
@@ -82,6 +91,11 @@ public class CreateCustomNet {
 		net.setExpectedInput(expectedInput);
 		System.out.println(expectedInput);
 
+		return expectedInput;
+	}
+
+	public String setExpectedOutput(Network net) {
+
 		for (int x = 1; x < net.getOutputSize() + 1; x++) {
 			System.out.println("Please enter the lower range of output " + x);
 			expectedOutput += scanIn.nextLine();
@@ -97,9 +111,10 @@ public class CreateCustomNet {
 
 		net.setExpectedOutput(expectedOutput);
 		System.out.println(expectedOutput);
+		return expectedOutput;
 	}
 
-	public void setConnections() {
+	public ArrayList<int[]> setConnections(Network net) {
 		// Connect layers
 		System.out.println("Setting Connections...");
 
@@ -131,26 +146,29 @@ public class CreateCustomNet {
 		}
 
 		net.setConnections(connections);
+		return connections;
 	}
 
-	public void setWeights() {
+	public ArrayList<String> setWeights(Network net) {
 		System.out
 				.println("Please configure your weights for each input connection");
 
-		for (int x = 0; x < connections.size(); x++) {
+		for (int x = 0; x < net.getConnections().size(); x++) {
 			System.out.println("Setting weight for layer " + (x + 1));
 			weights.add(scanIn.nextLine());
 		}
 
 		net.setWeights(weights);
+		return weights;
 	}
 
-	public void connectOutputs() {
+	public int connectOutputs(Network net) {
 		// Set output links
 		System.out.println("Setting output connections...");
 
 		net.setOutputSize(net.getLayerAmount());
 		System.out.println("Output connections set!");
+		return net.getLayerAmount();
 	}
 
 }
