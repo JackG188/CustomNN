@@ -13,12 +13,13 @@ public class ParseLogicFile {
 	ArrayList<Integer> neuronLocation = new ArrayList<Integer>();
 	ArrayList<String> inputList = new ArrayList<String>();
 	ArrayList<ParsedNet> neuronInputList = new ArrayList<ParsedNet>();
+	Network net = new Network();
 
 	public ParseLogicFile() {
 
 	}
 
-	public void parseFile(ArrayList<String> file) {
+	public Network parseFile(ArrayList<String> file) {
 
 		for (int x = 0; x < file.size(); x++) {
 			currentLine = file.get(x);
@@ -37,7 +38,7 @@ public class ParseLogicFile {
 			System.out
 					.println("No procedure found. Please review your prolog file");
 		}
-
+		return net;
 	}
 
 	public void findNeurons(ArrayList<String> file) {
@@ -87,8 +88,8 @@ public class ParseLogicFile {
 				inputList.add(inputSplit[0]);
 				neuronInputs.add(inputList.size());
 			} else {
-				neuronInputs.add(inputList.indexOf(inputSplit[0])+1);
-				
+				neuronInputs.add(inputList.indexOf(inputSplit[0]) + 1);
+
 			}
 
 		}
@@ -97,7 +98,7 @@ public class ParseLogicFile {
 	}
 
 	public void buildNetObject(ArrayList<ParsedNet> neurons) {
-		Network net = new Network();
+
 		ArrayList<int[]> connections = new ArrayList<int[]>();
 		net.setInputAmount(inputList.size());
 		net.setLayerAmount(neuronCount);
@@ -105,8 +106,7 @@ public class ParseLogicFile {
 
 		for (int x = 0; x < neuronCount; x++) {
 			ArrayList<Integer> inputs = neurons.get(x).getInputs();
-			
-			
+
 			for (int y = 0; y < inputs.size(); y++) {
 				int[] inputToNet = new int[2];
 				inputToNet[0] = x + 1;
@@ -115,7 +115,7 @@ public class ParseLogicFile {
 			}
 
 		}
-net.setConnections(connections);
+		net.setConnections(connections);
 	}
 
 }
