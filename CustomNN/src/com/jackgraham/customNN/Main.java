@@ -11,8 +11,12 @@ public class Main {
 		ReadLogicFile fileReader = new ReadLogicFile();
 		ParseLogicFile fileParser = new ParseLogicFile();
 		
-		fileParser.parseFile(fileReader.readFileIn());
-		net = customNet.getUserInput();
+		net = fileParser.parseFile(fileReader.readFileIn());
+		net.setNetName(customNet.setName(net));
+		net.setWeights(customNet.setWeights(net));
+		net.setExpectedInput(customNet.setExpectedInput(net));
+		net.setExpectedOutput(customNet.setExpectedOutput(net));
+	//	net = customNet.getUserInput();
 		CreateFile create = new CreateFile();
 		create.writeTofile(net);
 	}
